@@ -2,7 +2,7 @@
 import { program } from 'commander';
 import { render } from 'ink';
 import React from 'react';
-import { EnhanceCommand } from './commands/enhance';
+import { EnhanceCommand } from './commands/enhance.js';
 
 program
   .name('prompt-enhance')

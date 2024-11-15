@@ -1,5 +1,5 @@
-import { completionOptionsSchema, promptTemplateSchema, enhancedPromptSchema } from '../validation/schemas';
-import { EnhancementType } from '../types/prompt';
+import { completionOptionsSchema, promptTemplateSchema, enhancedPromptSchema } from '../validation/schemas.js';
+import { EnhancementType } from '../types/prompt.js';
 
 describe('Validation Schemas', () => {
   describe('completionOptionsSchema', () => {

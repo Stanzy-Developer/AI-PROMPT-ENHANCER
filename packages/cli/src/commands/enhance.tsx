@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Box, Text } from 'ink';
-import { AnthropicProvider } from '@prompt-enhancer/core/dist/index.js';
-import { EnhancementType } from '@prompt-enhancer/core/dist/index.js';
+import { AnthropicProvider, EnhancementType } from '@prompt-enhancer/core';
 
 interface EnhanceCommandProps {
   prompt: string;

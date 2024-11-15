@@ -1,6 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk';
-import { LLMProvider, CompletionOptions, CompletionResult } from '../types/llm';
-import { LLMProviderError } from '../errors';
+import { LLMProvider, CompletionOptions, CompletionResult } from '../types/llm.js';
+import { LLMProviderError } from '../errors/index.js';
 
 export class AnthropicProvider implements LLMProvider {
   private client: Anthropic;

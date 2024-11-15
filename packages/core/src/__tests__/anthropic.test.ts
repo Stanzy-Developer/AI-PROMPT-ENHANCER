@@ -1,5 +1,5 @@
-import { AnthropicProvider } from '../providers/anthropic';
-import { LLMProviderError } from '../errors';
+import { AnthropicProvider } from '../providers/anthropic.js';
+import { LLMProviderError } from '../errors/index.js';
 
 describe('AnthropicProvider', () => {
   const mockApiKey = 'sk-test-key';
