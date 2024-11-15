@@ -1,25 +1,29 @@
 import { program } from 'commander';
-import { jest } from '@jest/globals';
 
 describe('CLI', () => {
+  const mockExit = jest.spyOn(process, 'exit').mockImplementation(() => undefined as never);
+  const mockConsoleLog = jest.spyOn(console, 'log').mockImplementation(() => {});
+
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should display version information', () => {
-    const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
     program.parse(['node', 'test', '-v']);
-    expect(consoleSpy).toHaveBeenCalled();
+    expect(mockConsoleLog).toHaveBeenCalled();
   });
 
   it('should display help information', () => {
-    const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
     program.parse(['node', 'test', '--help']);
-    expect(consoleSpy).toHaveBeenCalled();
+    expect(mockConsoleLog).toHaveBeenCalled();
   });
 
   it('should handle enhance command with required arguments', () => {
-    const mockAction = jest.fn();
+    const mockAction = jest.fn().mockImplementation(() => {});
     program
       .command('enhance')
       .action(mockAction);
