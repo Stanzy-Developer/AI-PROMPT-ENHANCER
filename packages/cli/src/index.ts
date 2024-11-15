@@ -3,7 +3,16 @@ import { program } from 'commander';
 import { render } from 'ink';
 import React from 'react';
 import { EnhanceCommand } from './commands/enhance.js';
-import { version } from '../package.json';
+// Read version from package.json
+import { readFileSync } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const packageJson = JSON.parse(
+  readFileSync(join(__dirname, '..', 'package.json'), 'utf8')
+);
+const version = packageJson.version;
 
 // Set up the main program
 program
