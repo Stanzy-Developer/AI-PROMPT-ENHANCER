@@ -21,9 +21,9 @@ export class AnthropicProvider implements LLMProvider {
     try {
       const response = await this.client.messages.create({
         model: AnthropicProvider.DEFAULT_MODEL,
-        max_tokens: options?.maxTokens,
-        temperature: options?.temperature,
-        top_p: options?.topP,
+        max_tokens: options?.maxTokens ?? 1024, // Default to 1024 if not specified
+        temperature: options?.temperature ?? 0.7,
+        top_p: options?.topP ?? 1,
         stop_sequences: options?.stop,
         messages: [{ role: 'user', content: prompt }],
       });
