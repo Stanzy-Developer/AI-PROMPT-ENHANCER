@@ -5,6 +5,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "bin": {
+    "prompt-enhance": "./packages/cli/dist/index.js"
+  },
   "scripts": {
     "build": "turbo run build",
     "test": "turbo run test",
