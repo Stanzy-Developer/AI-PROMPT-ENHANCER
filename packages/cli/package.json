@@ -6,6 +6,7 @@
   "bin": {
     "prompt-enhance": "./dist/index.js"
   },
+  "preferGlobal": true,
   "scripts": {
     "build": "tsc",
     "test": "jest --config jest.config.js",
