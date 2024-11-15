@@ -27,7 +27,7 @@ program
   .description('Enhance a prompt with AI-powered improvements')
   .argument('<prompt>', 'The prompt text to enhance')
   .option('-t, --type <type>', 'Enhancement type (clarity, context, specificity, structure)', 'clarity')
-  .option('-m, --model <model>', 'Specify the AI model to use', 'claude-3.5-sonnet')
+  .option('-m, --model <model>', 'Specify the AI model to use', 'claude-3-sonnet')
   .option('--debug', 'Enable debug output')
   .action(async (prompt, options) => {
     try {

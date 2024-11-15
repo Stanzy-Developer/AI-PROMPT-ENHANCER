@@ -4,7 +4,7 @@ import { LLMProviderError } from '../errors/index.js';
 
 export class AnthropicProvider implements LLMProvider {
   private client: Anthropic;
-  private static readonly DEFAULT_MODEL = 'claude-3.5-sonnet';
+  private static readonly DEFAULT_MODEL = 'claude-3-sonnet';
   private static readonly MAX_RETRIES = 3;
   private static readonly RETRY_DELAY = 1000; // 1 second
 
