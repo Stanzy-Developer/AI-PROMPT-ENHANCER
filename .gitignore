@@ -1,5 +1,13 @@
 .aider*
 .env
+
+# Build artifacts in source directories
+**/*.js
+**/*.js.map
+**/*.d.ts
+**/*.d.ts.map
+!jest.config.js
+!.eslintrc.js
 # Dependencies
 node_modules/
 .pnp
