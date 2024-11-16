@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Box, Text, Spinner } from 'ink';
+import { Box, Text } from 'ink';
+import { Spinner } from '@inkjs/ui';
 import { AnthropicProvider, EnhancementType, LLMProviderError } from '@prompt-enhancer/core';
 
 interface EnhanceCommandProps {
