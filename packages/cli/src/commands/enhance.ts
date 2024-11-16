@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Box, Text, Spinner } from 'ink';
 import { AnthropicProvider, EnhancementType } from '@prompt-enhancer/core';
 
