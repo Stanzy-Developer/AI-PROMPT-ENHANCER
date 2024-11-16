@@ -3,12 +3,11 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
-    "jsx": "react-jsx",
     "types": ["node", "react", "jest"],
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node",
-    "module": "ESNext"
+    "allowJs": true,
+    "moduleResolution": "bundler",
+    "module": "ESNext",
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*"],
   "references": [{ "path": "../core" }]
