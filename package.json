@@ -16,6 +16,9 @@
     "cli": "./packages/cli/dist/index.js"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.1",
+    "jest-environment-jsdom": "^29.7.0",
     "turbo": "^1.11.3"
   }
 }
