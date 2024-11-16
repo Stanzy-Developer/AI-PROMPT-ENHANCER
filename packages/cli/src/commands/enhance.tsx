@@ -1,11 +1,13 @@
 import { FC, useEffect, useState } from 'react';
-import { Box, Text } from 'ink';
+import { Box, Text, Spinner } from 'ink';
 import { AnthropicProvider, EnhancementType } from '@prompt-enhancer/core';
 
 interface EnhanceCommandProps {
   prompt: string;
   options: {
     type?: string;
+    model?: string;
+    debug?: boolean;
   };
 }
 
@@ -36,22 +38,40 @@ export const EnhanceCommand: FC<EnhanceCommandProps> = ({ prompt, options }) => 
   }, [prompt, options.type]);
 
   if (loading) {
-    return <Text>Enhancing prompt...</Text>;
+    return (
+      <Box flexDirection="column" padding={1}>
+        <Spinner type="dots" />
+        <Text dimColor>Enhancing your prompt...</Text>
+      </Box>
+    );
   }
 
   if (error) {
-    return <Text color="red">Error: {error}</Text>;
+    return (
+      <Box borderStyle="round" borderColor="red" padding={1}>
+        <Text color="red" bold>Error: {error}</Text>
+      </Box>
+    );
   }
 
   return (
-    <Box flexDirection="column">
-      <Box marginBottom={1}>
-        <Text bold>Original prompt:</Text>
-        <Text> {prompt}</Text>
+    <Box flexDirection="column" padding={1}>
+      <Box 
+        borderStyle="single" 
+        borderColor="blue" 
+        padding={1} 
+        marginBottom={1}
+      >
+        <Text bold color="blue">Original prompt: </Text>
+        <Text>{prompt}</Text>
       </Box>
-      <Box>
-        <Text bold>Enhanced prompt:</Text>
-        <Text> {enhancedPrompt}</Text>
+      <Box 
+        borderStyle="single" 
+        borderColor="green" 
+        padding={1}
+      >
+        <Text bold color="green">Enhanced prompt: </Text>
+        <Text>{enhancedPrompt}</Text>
       </Box>
     </Box>
   );

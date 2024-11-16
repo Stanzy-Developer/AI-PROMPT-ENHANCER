@@ -2,7 +2,7 @@
 import { program } from 'commander';
 import { render } from 'ink';
 import React from 'react';
-import { EnhanceCommand } from './commands/enhance.jsx';
+import { EnhanceCommand } from './commands/enhance.js';
 // Read version from package.json
 import { readFileSync } from 'fs';
 import { join, dirname } from 'path';
