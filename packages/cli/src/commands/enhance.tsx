@@ -1,4 +1,5 @@
-import React, { FC, useEffect, useState } from 'react';
+import * as React from 'react';
+import type { FC } from 'react';
 import { Box, Text } from 'ink';
 import { Spinner } from '@inkjs/ui';
 import { AnthropicProvider, EnhancementType, LLMProviderError } from '@prompt-enhancer/core';
