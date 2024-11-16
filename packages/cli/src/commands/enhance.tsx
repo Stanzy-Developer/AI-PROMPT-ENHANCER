@@ -1,11 +1,11 @@
-import { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Box, Text, Spinner } from 'ink';
-import { AnthropicProvider, EnhancementType } from '@prompt-enhancer/core';
+import { AnthropicProvider, EnhancementType, LLMProviderError } from '@prompt-enhancer/core';
 
 interface EnhanceCommandProps {
   prompt: string;
   options: {
-    type?: string;
+    type?: EnhancementType;
     model?: string;
     debug?: boolean;
   };
@@ -13,35 +13,57 @@ interface EnhanceCommandProps {
 
 export const EnhanceCommand: FC<EnhanceCommandProps> = ({ prompt, options }) => {
   const [enhancedPrompt, setEnhancedPrompt] = useState<string>('');
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const enhance = async () => {
       try {
-        const provider = new AnthropicProvider(process.env.ANTHROPIC_API_KEY || '');
-        const enhancementType = options.type as EnhancementType || EnhancementType.CLARITY;
+        const apiKey = process.env.ANTHROPIC_API_KEY;
+        if (!apiKey) {
+          throw new Error('ANTHROPIC_API_KEY environment variable is not set');
+        }
+
+        const provider = new AnthropicProvider(apiKey);
+        const enhancementType = options.type || EnhancementType.CLARITY;
         
+        if (options.debug) {
+          console.debug('Enhancement type:', enhancementType);
+          console.debug('Model:', options.model);
+        }
+
         const result = await provider.generateCompletion(
-          `Enhance this prompt for ${enhancementType}: ${prompt}`
+          `Enhance this prompt for ${enhancementType}:\n\n${prompt}`
         );
         
         setEnhancedPrompt(result.text);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'An unknown error occurred');
+        const errorMessage = err instanceof LLMProviderError 
+          ? err.message 
+          : err instanceof Error 
+            ? err.message 
+            : 'An unknown error occurred';
+        
+        setError(errorMessage);
+        if (options.debug) {
+          console.error('Enhancement error:', err);
+        }
       } finally {
         setLoading(false);
       }
     };
 
     enhance();
-  }, [prompt, options.type]);
+  }, [prompt, options.type, options.debug, options.model]);
 
   if (loading) {
     return (
       <Box flexDirection="column" padding={1}>
-        <Spinner type="dots" />
-        <Text dimColor>Enhancing your prompt...</Text>
+        <Box marginBottom={1}>
+          <Spinner type="dots" />
+          <Text> Enhancing your prompt...</Text>
+        </Box>
+        <Text dimColor>This may take a few seconds...</Text>
       </Box>
     );
   }
