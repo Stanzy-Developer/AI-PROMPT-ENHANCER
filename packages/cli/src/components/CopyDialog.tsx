@@ -48,9 +48,7 @@ export const CopyDialog: React.FC<CopyDialogProps> = ({ text, onClose }) => {
 
   return (
     <Box flexDirection="column" padding={1}>
-      <ThemedMessage type="info">
-        Copy enhanced prompt to clipboard? (y/n)
-      </ThemedMessage>
+      <ThemedMessage type="info">Copy enhanced prompt to clipboard? (y/n)</ThemedMessage>
       <Text dimColor>Press 'y' to copy, 'n' or ESC to cancel</Text>
     </Box>
   );
