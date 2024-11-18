@@ -1,7 +1,8 @@
 import React from 'react';
-import { Box, Text } from 'ink';
+import { Box, Text, useInput } from 'ink';
 import { LoadingSpinner } from '../components/LoadingSpinner.js';
 import { ThemedMessage } from '../components/ThemedMessage.js';
+import { CopyDialog } from '../components/CopyDialog.js';
 import { AnthropicProvider, EnhancementType, LLMProviderError } from '@prompt-enhancer/core';
 
 console.log('React version:', React.version);
@@ -21,6 +22,13 @@ export const EnhanceCommand = ({ prompt, options }: EnhanceCommandProps) => {
   const [enhancedPrompt, setEnhancedPrompt] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showCopyDialog, setShowCopyDialog] = useState(false);
+
+  useInput((input) => {
+    if (input === '/copy' && enhancedPrompt && !loading && !error) {
+      setShowCopyDialog(true);
+    }
+  });
 
   useEffect(() => {
     const enhance = async () => {
@@ -94,6 +102,15 @@ export const EnhanceCommand = ({ prompt, options }: EnhanceCommandProps) => {
         </ThemedMessage>
         <Text>{enhancedPrompt}</Text>
       </Box>
+      <Box marginTop={1}>
+        <Text dimColor>Type /copy to copy the enhanced prompt</Text>
+      </Box>
+      {showCopyDialog && (
+        <CopyDialog
+          text={enhancedPrompt}
+          onClose={() => setShowCopyDialog(false)}
+        />
+      )}
     </Box>
   );
 };
