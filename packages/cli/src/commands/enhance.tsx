@@ -67,35 +67,33 @@ export const EnhanceCommand = ({ prompt, options }: EnhanceCommandProps) => {
       <Box flexDirection="column" padding={1}>
         <Box marginBottom={1}>
           <Spinner type="dots" />
-          <Text> Enhancing your prompt...</Text>
+          <ThemedMessage type="info"> Enhancing your prompt...</ThemedMessage>
         </Box>
-        <Text dimColor>This may take a few seconds...</Text>
+        <ThemedMessage type="info" dimColor>This may take a few seconds...</ThemedMessage>
       </Box>
     );
   }
 
   if (error) {
     return (
-      <Box borderStyle="round" borderColor="red" padding={1}>
-        <Text color="red" bold>
-          Error: {error}
-        </Text>
-      </Box>
+      <ThemedMessage type="error" bold padding={1}>
+        Error: {error}
+      </ThemedMessage>
     );
   }
 
   return (
     <Box flexDirection="column" padding={1}>
-      <Box borderStyle="single" borderColor="blue" padding={1} marginBottom={1}>
-        <Text bold color="blue">
+      <Box borderStyle="single" padding={1} marginBottom={1}>
+        <ThemedMessage type="header" bold>
           Original prompt:{' '}
-        </Text>
+        </ThemedMessage>
         <Text>{prompt}</Text>
       </Box>
-      <Box borderStyle="single" borderColor="green" padding={1}>
-        <Text bold color="green">
+      <Box borderStyle="single" padding={1}>
+        <ThemedMessage type="success" bold>
           Enhanced prompt:{' '}
-        </Text>
+        </ThemedMessage>
         <Text>{enhancedPrompt}</Text>
       </Box>
     </Box>
