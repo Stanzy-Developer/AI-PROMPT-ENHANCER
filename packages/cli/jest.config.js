@@ -12,12 +12,13 @@ export default {
     }],
     '^.+\\.m?js$': ['babel-jest', {
       presets: [
-        ['@babel/preset-env', { targets: { node: 'current' } }]
+        ['@babel/preset-env', { targets: { node: 'current' } }],
+        '@babel/preset-react'
       ]
     }]
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(ink|ink-testing-library)/.*)'
+    '/node_modules/(?!.*(ink|ink-testing-library)/.*)'
   ],
   testEnvironmentOptions: {
     customExportConditions: ['node', 'node-addons']
