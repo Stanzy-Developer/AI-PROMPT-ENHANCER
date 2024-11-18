@@ -17,7 +17,7 @@
     "build": "tsc",
     "test": "jest --config jest.config.mjs",
     "start": "NODE_OPTIONS=\"--loader ts-node/esm\" node --experimental-specifier-resolution=node -r ts-node/register src/index.tsx",
-    "dev": "NODE_OPTIONS=\"--loader ts-node/esm\" node --experimental-specifier-resolution=node -r ts-node/register src/index.tsx enhance",
+    "dev": "ts-node --esm src/index.tsx enhance",
     "link": "npm link"
   },
   "dependencies": {
