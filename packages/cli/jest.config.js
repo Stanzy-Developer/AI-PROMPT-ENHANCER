@@ -1,7 +1,7 @@
 /** @type {import('jest').Config} */
 export default {
   preset: 'ts-jest',
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
@@ -17,6 +17,9 @@ export default {
     }]
   },
   transformIgnorePatterns: [
-    '/node_modules/(?!(ink|ink-testing-library|.*)/)'
-  ]
+    'node_modules/(?!(ink|ink-testing-library)/.*)'
+  ],
+  testEnvironmentOptions: {
+    customExportConditions: ['node', 'node-addons']
+  }
 };
