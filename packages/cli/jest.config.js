@@ -11,10 +11,12 @@ export default {
       useESM: true,
     }],
     '^.+\\.m?js$': ['babel-jest', {
-      presets: ['@babel/preset-env'],
+      presets: [
+        ['@babel/preset-env', { targets: { node: 'current' } }]
+      ]
     }]
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(ink|ink-testing-library)/.*)'
+    '/node_modules/(?!(ink|ink-testing-library|.*)/)'
   ]
 };
