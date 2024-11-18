@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Box, Text, useInput } from 'ink';
 import { ThemedMessage } from './ThemedMessage.js';
 import { ClipboardService } from '../utils/clipboard.js';
+import { getErrorDetails, formatError } from '../utils/errorHandling.js';
 
 interface CopyDialogProps {
   text: string;
@@ -22,7 +23,9 @@ export const CopyDialog: React.FC<CopyDialogProps> = ({ text, onClose }) => {
           // Close immediately without timeout
           onClose();
         } else {
-          setError('Failed to copy to clipboard');
+          const errorDetails = getErrorDetails(new Error('Failed to copy to clipboard'));
+          errorDetails.suggestion = 'Make sure you have clipboard permissions and try again';
+          setError(formatError(errorDetails));
         }
       } catch (err) {
         setError('Failed to copy to clipboard');

@@ -4,6 +4,7 @@ import { LoadingSpinner } from '../components/LoadingSpinner.js';
 import { ThemedMessage } from '../components/ThemedMessage.js';
 import { CopyDialog } from '../components/CopyDialog.js';
 import { AnthropicProvider, EnhancementType, LLMProviderError } from '@prompt-enhancer/core';
+import { getErrorDetails, formatError } from '../utils/errorHandling.js';
 
 console.log('React version:', React.version);
 
@@ -52,17 +53,16 @@ export const EnhanceCommand = ({ prompt, options }: EnhanceCommandProps) => {
 
         setEnhancedPrompt(result.text);
       } catch (err) {
-        const errorMessage =
-          err instanceof LLMProviderError
-            ? err.message
-            : err instanceof Error
-              ? err.message
-              : 'An unknown error occurred';
-
+        const errorDetails = getErrorDetails(err);
+        
         if (options.debug) {
-          console.error('Enhancement error:', err);
+          console.error('Enhancement error:', {
+            ...errorDetails,
+            originalError: err
+          });
         }
-        setError(errorMessage);
+        
+        setError(formatError(errorDetails));
       } finally {
         setLoading(false);
       }
