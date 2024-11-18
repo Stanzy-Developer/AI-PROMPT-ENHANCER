@@ -24,11 +24,11 @@ export const EnhanceCommand = ({ prompt, options }: EnhanceCommandProps) => {
   const [loading, setLoading] = useState(true);
   const [showCopyDialog, setShowCopyDialog] = useState(false);
 
-  useInput((input) => {
-    if (input === '/copy' && enhancedPrompt && !loading && !error) {
+  useInput((input, key) => {
+    if (input === 'c' && enhancedPrompt && !loading && !error) {
       setShowCopyDialog(true);
     }
-  });
+  }, { isActive: !showCopyDialog });
 
   useEffect(() => {
     const enhance = async () => {
@@ -103,7 +103,7 @@ export const EnhanceCommand = ({ prompt, options }: EnhanceCommandProps) => {
         <Text>{enhancedPrompt}</Text>
       </Box>
       <Box marginTop={1}>
-        <Text dimColor>Type /copy to copy the enhanced prompt</Text>
+        <Text dimColor>Press 'c' to copy the enhanced prompt</Text>
       </Box>
       {showCopyDialog && (
         <CopyDialog
