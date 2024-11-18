@@ -1,14 +1,20 @@
-module.exports = {
-  preset: 'ts-jest',
+/** @type {import('jest').Config} */
+export default {
+  preset: 'ts-jest/presets/default-esm',
   testEnvironment: 'node',
-  moduleFileExtensions: ['ts', 'js', 'json'],
-  transform: {
-    '^.+\\.tsx?$': ['ts-jest', {
-      useESM: true,
-    }],
-  },
-  testMatch: ['**/__tests__/**/*.test.ts'],
+  extensionsToTreatAsEsm: ['.ts', '.tsx'],
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
+  transform: {
+    '^.+\\.(ts|tsx)$': [
+      'ts-jest',
+      {
+        useESM: true,
+      },
+    ],
+  },
+  transformIgnorePatterns: [
+    'node_modules/(?!(ink-testing-library|ink|.*)/)'
+  ]
 };
