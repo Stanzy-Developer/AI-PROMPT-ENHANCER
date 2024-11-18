@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'ink-testing-library';
+const { render } = require('ink-testing-library');
 import { ThemedMessage } from '../../components/ThemedMessage';
 import { expect, describe, it } from '@jest/globals';
 

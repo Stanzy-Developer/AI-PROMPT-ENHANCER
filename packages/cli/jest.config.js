@@ -10,15 +10,10 @@ export default {
     '^.+\\.(ts|tsx)$': ['ts-jest', {
       useESM: true,
     }],
-    '^.+\\.m?js$': ['babel-jest', {
-      presets: [
-        ['@babel/preset-env', { targets: { node: 'current' }, modules: false }],
-        '@babel/preset-react'
-      ]
-    }]
+    '^.+\\.m?js$': 'babel-jest'
   },
   transformIgnorePatterns: [
-    '/node_modules/(?!.*(ink|ink-testing-library))',
+    'node_modules/(?!(ink-testing-library|ink|.*)/)'
   ],
   testEnvironmentOptions: {
     customExportConditions: ['node', 'node-addons'],
