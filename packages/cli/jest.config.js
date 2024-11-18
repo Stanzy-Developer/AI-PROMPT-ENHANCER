@@ -18,7 +18,7 @@ export default {
     }]
   },
   transformIgnorePatterns: [
-    '/node_modules/(?!.*(ink|ink-testing-library)/.*)'
+    'node_modules/(?!(ink|ink-testing-library)/.*)'
   ],
   testEnvironmentOptions: {
     customExportConditions: ['node', 'node-addons']
