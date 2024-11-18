@@ -18,9 +18,9 @@ export const CopyDialog: React.FC<CopyDialogProps> = ({ text, onClose }) => {
         const success = await ClipboardService.copyToClipboard(text);
         if (success) {
           setCopied(true);
-          setTimeout(() => {
-            onClose();
-          }, 1500); // Close after showing success message
+          setCopied(true);
+          // Close immediately without timeout
+          onClose();
         } else {
           setError('Failed to copy to clipboard');
         }

@@ -108,7 +108,11 @@ export const EnhanceCommand = ({ prompt, options }: EnhanceCommandProps) => {
       {showCopyDialog && (
         <CopyDialog
           text={enhancedPrompt}
-          onClose={() => setShowCopyDialog(false)}
+          onClose={() => {
+            setShowCopyDialog(false);
+            // Reset the copied state to allow for future copying
+            process.stdout.write('\n');
+          }}
         />
       )}
     </Box>
