@@ -1,7 +1,11 @@
-import React, { FC, useEffect, useState } from 'react';
+import React from 'react';
 import { Box, Text } from 'ink';
 import { Spinner } from '@inkjs/ui';
 import { AnthropicProvider, EnhancementType, LLMProviderError } from '@prompt-enhancer/core';
+
+console.log('React version:', React.version);
+
+const { useEffect, useState } = React;
 
 interface EnhanceCommandProps {
   prompt: string;
@@ -12,7 +16,7 @@ interface EnhanceCommandProps {
   };
 }
 
-export const EnhanceCommand: FC<EnhanceCommandProps> = ({ prompt, options }) => {
+export const EnhanceCommand = ({ prompt, options }: EnhanceCommandProps) => {
   const [enhancedPrompt, setEnhancedPrompt] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -27,7 +31,7 @@ export const EnhanceCommand: FC<EnhanceCommandProps> = ({ prompt, options }) => 
 
         const provider = new AnthropicProvider(apiKey);
         const enhancementType = options.type || EnhancementType.CLARITY;
-        
+
         if (options.debug) {
           console.debug('Enhancement type:', enhancementType);
           console.debug('Model:', options.model);
@@ -36,19 +40,20 @@ export const EnhanceCommand: FC<EnhanceCommandProps> = ({ prompt, options }) => 
         const result = await provider.generateCompletion(
           `Enhance this prompt for ${enhancementType}:\n\n${prompt}`
         );
-        
+
         setEnhancedPrompt(result.text);
       } catch (err) {
-        const errorMessage = err instanceof LLMProviderError 
-          ? err.message 
-          : err instanceof Error 
-            ? err.message 
-            : 'An unknown error occurred';
-        
-        setError(errorMessage);
+        const errorMessage =
+          err instanceof LLMProviderError
+            ? err.message
+            : err instanceof Error
+              ? err.message
+              : 'An unknown error occurred';
+
         if (options.debug) {
           console.error('Enhancement error:', err);
         }
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }
@@ -72,28 +77,25 @@ export const EnhanceCommand: FC<EnhanceCommandProps> = ({ prompt, options }) => 
   if (error) {
     return (
       <Box borderStyle="round" borderColor="red" padding={1}>
-        <Text color="red" bold>Error: {error}</Text>
+        <Text color="red" bold>
+          Error: {error}
+        </Text>
       </Box>
     );
   }
 
   return (
     <Box flexDirection="column" padding={1}>
-      <Box 
-        borderStyle="single" 
-        borderColor="blue" 
-        padding={1} 
-        marginBottom={1}
-      >
-        <Text bold color="blue">Original prompt: </Text>
+      <Box borderStyle="single" borderColor="blue" padding={1} marginBottom={1}>
+        <Text bold color="blue">
+          Original prompt:{' '}
+        </Text>
         <Text>{prompt}</Text>
       </Box>
-      <Box 
-        borderStyle="single" 
-        borderColor="green" 
-        padding={1}
-      >
-        <Text bold color="green">Enhanced prompt: </Text>
+      <Box borderStyle="single" borderColor="green" padding={1}>
+        <Text bold color="green">
+          Enhanced prompt:{' '}
+        </Text>
         <Text>{enhancedPrompt}</Text>
       </Box>
     </Box>
