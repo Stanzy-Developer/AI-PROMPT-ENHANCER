@@ -26,7 +26,8 @@ describe('CopyDialog', () => {
   });
 
   it('shows success message after copying', async () => {
-    (ClipboardService.copyToClipboard as jest.Mock<Promise<boolean>, [string]>).mockResolvedValue(true);
+    const mockCopyToClipboard = ClipboardService.copyToClipboard as jest.Mock;
+    mockCopyToClipboard.mockResolvedValue(true);
     const { lastFrame } = render(
       <CopyDialog text={mockText} onClose={mockOnClose} />
     );
