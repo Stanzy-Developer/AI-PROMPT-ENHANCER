@@ -63,7 +63,6 @@ export const EnhanceCommand = ({ prompt, options }: EnhanceCommandProps) => {
           console.error('Enhancement error:', err);
         }
         setError(errorMessage);
-        setTimeout(() => process.exit(1), 1500);
       } finally {
         setLoading(false);
       }

@@ -20,19 +20,15 @@ export const CopyDialog: React.FC<CopyDialogProps> = ({ text, onClose }) => {
           setCopied(true);
           setTimeout(() => {
             onClose();
-            process.exit(0);
-          }, 1500); // Close and exit after showing success message
+          }, 1500); // Close after showing success message
         } else {
           setError('Failed to copy to clipboard');
-          setTimeout(() => process.exit(1), 1500);
         }
       } catch (err) {
         setError('Failed to copy to clipboard');
-        setTimeout(() => process.exit(1), 1500);
       }
     } else if (input.toLowerCase() === 'n' || key.escape) {
       onClose();
-      process.exit(0);
     }
   });
 
