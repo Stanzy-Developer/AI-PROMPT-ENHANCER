@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Text } from 'ink';
-import { LoadingSpinner } from '../components/LoadingSpinner';
+import { LoadingSpinner } from '../components/LoadingSpinner.js';
+import { ThemedMessage } from '../components/ThemedMessage.js';
 import { AnthropicProvider, EnhancementType, LLMProviderError } from '@prompt-enhancer/core';
 
 console.log('React version:', React.version);
@@ -64,8 +65,8 @@ export const EnhanceCommand = ({ prompt, options }: EnhanceCommandProps) => {
 
   if (loading) {
     return (
-      <LoadingSpinner 
-        message="Enhancing your prompt..." 
+      <LoadingSpinner
+        message="Enhancing your prompt..."
         subMessage="This may take a few seconds..."
       />
     );
