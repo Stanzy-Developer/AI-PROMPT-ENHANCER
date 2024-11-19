@@ -120,7 +120,6 @@ export const EnhanceCommand = ({ prompt, options }: EnhanceCommandProps) => {
       )}
       {showLLMDialog && (
         <LLMSelectDialog
-          prompt={enhancedPrompt}
           onSelect={(url) => {
             if (url) {
               // Open the selected LLM chat in the default browser

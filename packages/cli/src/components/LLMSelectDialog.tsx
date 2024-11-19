@@ -4,31 +4,27 @@ import { ThemedMessage } from './ThemedMessage.js';
 
 interface LLMSelectDialogProps {
   onSelect: (url: string | null) => void;
-  prompt: string;
 }
 
 const LLM_OPTIONS = [
   {
     key: '1',
     name: 'ChatGPT',
-    formatUrl: (prompt: string) =>
-      `https://chat.openai.com/c/new?prompt=${encodeURIComponent(prompt)}`,
+    url: 'https://chat.openai.com',
   },
   {
     key: '2',
     name: 'Claude AI',
-    formatUrl: (prompt: string) =>
-      `https://claude.ai/chat/new?prompt=${encodeURIComponent(prompt)}`,
+    url: 'https://claude.ai',
   },
   {
     key: '3',
     name: 'Gemini',
-    formatUrl: (prompt: string) =>
-      `https://gemini.google.com/app?text=${encodeURIComponent(prompt)}`,
+    url: 'https://gemini.google.com/app',
   },
 ];
 
-export const LLMSelectDialog: React.FC<LLMSelectDialogProps> = ({ onSelect, prompt }) => {
+export const LLMSelectDialog: React.FC<LLMSelectDialogProps> = ({ onSelect }) => {
   useInput((input, key) => {
     if (key.escape || input.toLowerCase() === 'n') {
       onSelect(null);
@@ -37,7 +33,7 @@ export const LLMSelectDialog: React.FC<LLMSelectDialogProps> = ({ onSelect, prom
 
     const option = LLM_OPTIONS.find((opt) => opt.key === input);
     if (option) {
-      onSelect(option.formatUrl(prompt));
+      onSelect(option.url);
     }
   });
 
