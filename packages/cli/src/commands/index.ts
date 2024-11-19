@@ -20,12 +20,12 @@ export const createProgram = () => {
       if (prompt) {
         // Direct enhance command
         const { waitUntilExit } = render(
-          <EnhanceCommand 
-            prompt={prompt} 
-            options={{
-              type: options.type as EnhancementType,
-            }} 
-          />
+          React.createElement(EnhanceCommand, {
+            prompt: prompt,
+            options: {
+              type: options.type as EnhancementType
+            }
+          })
         );
         await waitUntilExit();
       } else {
