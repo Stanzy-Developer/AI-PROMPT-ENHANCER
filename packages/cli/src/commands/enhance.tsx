@@ -120,11 +120,12 @@ export const EnhanceCommand = ({ prompt, options }: EnhanceCommandProps) => {
       )}
       {showLLMDialog && (
         <LLMSelectDialog
+          prompt={enhancedPrompt}
           onSelect={(url) => {
             if (url) {
               // Open the selected LLM chat in the default browser
               const command = process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open';
-              exec(`${command} ${url}`);
+              exec(`${command} "${url}"`);
             }
             // Reset the copied state to allow for future copying
             process.stdout.write('\n');

@@ -4,12 +4,28 @@ import { ThemedMessage } from './ThemedMessage.js';
 
 interface LLMSelectDialogProps {
   onSelect: (llm: string | null) => void;
+  prompt: string;
 }
 
 const LLM_OPTIONS = [
-  { key: '1', name: 'ChatGPT', url: 'https://chat.openai.com' },
-  { key: '2', name: 'Claude AI', url: 'https://claude.ai' },
-  { key: '3', name: 'Gemini', url: 'https://gemini.google.com' }
+  { 
+    key: '1', 
+    name: 'ChatGPT', 
+    url: 'https://chat.openai.com/c/new',
+    formatUrl: (prompt: string) => `https://chat.openai.com/c/new?prompt=${encodeURIComponent(prompt)}`
+  },
+  { 
+    key: '2', 
+    name: 'Claude AI', 
+    url: 'https://claude.ai/chat/new',
+    formatUrl: (prompt: string) => `https://claude.ai/chat/new?prompt=${encodeURIComponent(prompt)}`
+  },
+  { 
+    key: '3', 
+    name: 'Gemini', 
+    url: 'https://gemini.google.com/app',
+    formatUrl: (prompt: string) => `https://gemini.google.com/app?text=${encodeURIComponent(prompt)}`
+  }
 ];
 
 export const LLMSelectDialog: React.FC<LLMSelectDialogProps> = ({ onSelect }) => {
@@ -21,7 +37,7 @@ export const LLMSelectDialog: React.FC<LLMSelectDialogProps> = ({ onSelect }) =>
 
     const option = LLM_OPTIONS.find(opt => opt.key === input);
     if (option) {
-      onSelect(option.url);
+      onSelect(option.formatUrl(prompt));
     }
   });
 
