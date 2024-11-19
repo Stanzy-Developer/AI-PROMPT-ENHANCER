@@ -1,4 +1,4 @@
-import { CommandLoopService } from '../../services/CommandLoopService';
+import { CommandLoopService } from '../../services/CommandLoopService.js';
 
 describe('CommandLoopService', () => {
   let service: CommandLoopService;
