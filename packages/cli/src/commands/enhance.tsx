@@ -56,6 +56,10 @@ export const EnhanceCommand = ({ prompt, options }: EnhanceCommandProps) => {
         );
 
         setEnhancedPrompt(result.text);
+        
+        // Store in session history
+        const commandLoop = new CommandLoopService();
+        commandLoop.addPromptToHistory(prompt, result.text, enhancementType);
       } catch (err) {
         const errorDetails = getErrorDetails(err);
         
