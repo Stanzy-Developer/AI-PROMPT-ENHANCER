@@ -16,7 +16,9 @@ export const CopyDialog: React.FC<CopyDialogProps> = ({ text, onClose }) => {
   useInput(async (input, key) => {
     if (input.toLowerCase() === 'y') {
       try {
-        const success = await ClipboardService.copyToClipboard(text);
+        // Extract the actual prompt content after the prefix
+        const cleanText = text.replace(/^Here is the prompt enhanced for clarity:\s*/i, '').trim();
+        const success = await ClipboardService.copyToClipboard(cleanText);
         if (success) {
           setCopied(true);
           setCopied(true);
