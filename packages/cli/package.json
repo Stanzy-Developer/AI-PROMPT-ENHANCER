@@ -12,6 +12,9 @@
   "bin": {
     "prompt-enhance": "./dist/index.js"
   },
+  "files": [
+    "dist"
+  ],
   "preferGlobal": true,
   "scripts": {
     "build": "tsc",
