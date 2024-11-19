@@ -3,7 +3,7 @@ import { Box, Text, useInput, useApp } from 'ink';
 import { LoadingSpinner } from '../components/LoadingSpinner.js';
 import { ThemedMessage } from '../components/ThemedMessage.js';
 import { CopyDialog } from '../components/CopyDialog.js';
-import { AnthropicProvider, EnhancementType, LLMProviderError } from '@prompt-enhancer/core';
+import { AnthropicProvider, EnhancementType} from '@prompt-enhancer/core';
 import { getErrorDetails, formatError } from '../utils/errorHandling.js';
 
 console.log('React version:', React.version);
@@ -26,7 +26,7 @@ export const EnhanceCommand = ({ prompt, options }: EnhanceCommandProps) => {
   const [loading, setLoading] = useState(true);
   const [showCopyDialog, setShowCopyDialog] = useState(false);
 
-  useInput((input, key) => {
+  useInput((input) => {
     if (input === 'c' && enhancedPrompt && !loading && !error) {
       setShowCopyDialog(true);
     }
