@@ -37,16 +37,26 @@ enum EnhancementType {
 
 ### enhance
 
-Enhances a prompt using AI:
+Enhances a prompt using AI. Supports both direct command-line and interactive modes:
 
 ```bash
+# Direct command-line mode
 prompt-enhance enhance [options] <prompt>
+
+# Interactive mode
+prompt-enhance enhance
 ```
 
 Options:
 - `-t, --type <type>` - Enhancement type (default: "clarity")
-- `-m, --model <model>` - AI model to use (default: "claude-3.5-sonnet")
+- `-m, --model <model>` - AI model to use (default: "claude-3-opus-20240229")
 - `--debug` - Enable debug output
+
+Features:
+- Clipboard integration (press 'c' to copy enhanced prompt)
+- Direct LLM integration (open enhanced prompt in ChatGPT, Claude, or Gemini)
+- Command history tracking
+- Session state persistence
 
 ### help
 
@@ -70,4 +80,27 @@ The API uses custom error classes:
 
 - `LLMProviderError`: API-related errors
 - `ValidationError`: Input validation errors
-- `PromptEnhancementError`: Enhancement process errors
+- `EnhancementError`: Enhancement process errors with detailed error information:
+  ```typescript
+  interface ErrorDetails {
+    message: string;
+    code?: string;
+    suggestion?: string;
+    debug?: any;
+  }
+  ```
+
+## Command Loop Service
+
+```typescript
+class CommandLoopService {
+  start(): void;
+  stop(): void;
+  addToHistory(command: string): void;
+  getCommandHistory(): string[];
+  addPromptToHistory(original: string, enhanced: string, type: EnhancementType): void;
+  getPromptHistory(): PromptHistoryEntry[];
+  setConfig(config: Partial<SessionConfig>): void;
+  getConfig(): SessionConfig;
+}
+```

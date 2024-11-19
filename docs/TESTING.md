@@ -7,6 +7,7 @@ We use Jest for testing across all packages. Our testing approach includes:
 - Unit tests for individual components
 - Integration tests for API interactions
 - End-to-end tests for CLI functionality
+- React component testing with ink-testing-library
 
 ## Running Tests
 
@@ -28,16 +29,44 @@ npm test -- --watch
 
 ## Writing Tests
 
-### Unit Tests
+### React Component Tests
 
-Place unit tests in `__tests__` directories next to the code being tested:
+Use ink-testing-library for testing Ink components:
 
 ```typescript
-import { something } from '../something';
+import { render } from 'ink-testing-library';
+import { EnhanceCommand } from '../commands/enhance';
 
-describe('something', () => {
-  it('should do something', () => {
-    expect(something()).toBe(true);
+describe('EnhanceCommand', () => {
+  it('should render enhancement options', () => {
+    const { lastFrame } = render(
+      <EnhanceCommand 
+        prompt="test prompt"
+        options={{ type: EnhancementType.CLARITY }}
+      />
+    );
+    expect(lastFrame()).toContain('Enhancing your prompt');
+  });
+});
+```
+
+### Service Tests
+
+Test service classes with proper mocking:
+
+```typescript
+import { CommandLoopService } from '../services/CommandLoopService';
+
+describe('CommandLoopService', () => {
+  let service: CommandLoopService;
+
+  beforeEach(() => {
+    service = new CommandLoopService();
+  });
+
+  it('should maintain command history', () => {
+    service.addToHistory('test command');
+    expect(service.getCommandHistory()).toContain('test command');
   });
 });
 ```
@@ -45,17 +74,22 @@ describe('something', () => {
 ### Integration Tests
 
 Integration tests should:
-- Mock external services
-- Test error conditions
-- Verify API interactions
+- Mock external services (Anthropic, HuggingFace)
+- Test error conditions and recovery
+- Verify clipboard operations
+- Test LLM integrations
+- Verify session state persistence
 
 ### CLI Tests
 
 CLI tests should verify:
-- Command parsing
-- User input handling
-- Output formatting
-- Error scenarios
+- Command parsing and validation
+- Enhancement type handling
+- Interactive mode functionality
+- Clipboard integration
+- LLM selection dialog
+- Error handling and recovery
+- Session state management
 
 ## Test Coverage
 
@@ -66,7 +100,11 @@ npm test -- --coverage
 
 We aim for:
 - 80% overall coverage
-- 100% coverage for critical paths
+- 100% coverage for:
+  - Core enhancement logic
+  - Error handling
+  - CLI commands
+  - React components
 
 
 <!-- /web  http://127.0.0.1:5500/FormattedProblemStatement.html -->
