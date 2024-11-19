@@ -3,10 +3,11 @@ import { Box, Text, useInput, useApp } from 'ink';
 import { LoadingSpinner } from '../components/LoadingSpinner.js';
 import { ThemedMessage } from '../components/ThemedMessage.js';
 import { CopyDialog } from '../components/CopyDialog.js';
-import { AnthropicProvider, EnhancementType} from '@prompt-enhancer/core';
+import { AnthropicProvider, EnhancementType } from '@prompt-enhancer/core';
 import { getErrorDetails, formatError } from '../utils/errorHandling.js';
 import { LLMSelectDialog } from '../components/LLMSelectDialog.js';
 import { exec } from 'child_process';
+import { CommandLoopService } from '../services/CommandLoopService.js';
 
 console.log('React version:', React.version);
 
@@ -29,11 +30,14 @@ export const EnhanceCommand = ({ prompt, options }: EnhanceCommandProps) => {
   const [showCopyDialog, setShowCopyDialog] = useState(false);
   const [showLLMDialog, setShowLLMDialog] = useState(false);
 
-  useInput((input) => {
-    if (input === 'c' && enhancedPrompt && !loading && !error) {
-      setShowCopyDialog(true);
-    }
-  }, { isActive: !showCopyDialog });
+  useInput(
+    (input) => {
+      if (input === 'c' && enhancedPrompt && !loading && !error) {
+        setShowCopyDialog(true);
+      }
+    },
+    { isActive: !showCopyDialog }
+  );
 
   useEffect(() => {
     const enhance = async () => {
@@ -56,20 +60,20 @@ export const EnhanceCommand = ({ prompt, options }: EnhanceCommandProps) => {
         );
 
         setEnhancedPrompt(result.text);
-        
+
         // Store in session history
         const commandLoop = new CommandLoopService();
         commandLoop.addPromptToHistory(prompt, result.text, enhancementType);
       } catch (err) {
         const errorDetails = getErrorDetails(err);
-        
+
         if (options.debug) {
           console.error('Enhancement error:', {
             ...errorDetails,
-            originalError: err
+            originalError: err,
           });
         }
-        
+
         setError(formatError(errorDetails));
       } finally {
         setLoading(false);
@@ -128,7 +132,12 @@ export const EnhanceCommand = ({ prompt, options }: EnhanceCommandProps) => {
           onSelect={(url) => {
             if (url) {
               // Open the selected LLM chat in the default browser
-              const command = process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open';
+              const command =
+                process.platform === 'darwin'
+                  ? 'open'
+                  : process.platform === 'win32'
+                    ? 'start'
+                    : 'xdg-open';
               exec(`${command} "${url}"`);
             }
             // Reset the copied state to allow for future copying
