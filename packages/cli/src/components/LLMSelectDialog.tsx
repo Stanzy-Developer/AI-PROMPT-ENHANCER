@@ -38,7 +38,10 @@ export const LLMSelectDialog: React.FC<LLMSelectDialogProps> = ({ onSelect, prom
     const option = LLM_OPTIONS.find((opt) => opt.key === input);
     if (option) {
       // Clean the prompt before sending to LLM
-      const cleanPrompt = prompt.replace(/^Here is the prompt enhanced for clarity:\s*/i, '').trim();
+      const cleanPrompt = prompt
+        .replace(/^Here is the prompt enhanced for clarity:\s*/i, '')
+        .replace(/^Here is an enhanced version of the prompt for better clarity:\s*/i, '')
+        .trim();
       onSelect(option.formatUrl(cleanPrompt));
     }
   });
