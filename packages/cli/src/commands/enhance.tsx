@@ -25,6 +25,7 @@ export const EnhanceCommand = ({ prompt, options }: EnhanceCommandProps) => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [showCopyDialog, setShowCopyDialog] = useState(false);
+  const [showLLMDialog, setShowLLMDialog] = useState(false);
 
   useInput((input) => {
     if (input === 'c' && enhancedPrompt && !loading && !error) {
@@ -111,6 +112,18 @@ export const EnhanceCommand = ({ prompt, options }: EnhanceCommandProps) => {
           text={enhancedPrompt}
           onClose={() => {
             setShowCopyDialog(false);
+            setShowLLMDialog(true);
+          }}
+        />
+      )}
+      {showLLMDialog && (
+        <LLMSelectDialog
+          onSelect={(url) => {
+            if (url) {
+              // Open the selected LLM chat in the default browser
+              const command = process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open';
+              require('child_process').exec(`${command} ${url}`);
+            }
             // Reset the copied state to allow for future copying
             process.stdout.write('\n');
             // Signal completion to command loop
