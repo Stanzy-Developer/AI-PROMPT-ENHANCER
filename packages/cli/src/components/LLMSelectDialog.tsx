@@ -3,39 +3,39 @@ import { Box, Text, useInput } from 'ink';
 import { ThemedMessage } from './ThemedMessage.js';
 
 interface LLMSelectDialogProps {
-  onSelect: (llm: string | null) => void;
+  onSelect: (url: string | null) => void;
   prompt: string;
 }
 
 const LLM_OPTIONS = [
-  { 
-    key: '1', 
-    name: 'ChatGPT', 
-    url: 'https://chat.openai.com/c/new',
-    formatUrl: (prompt: string) => `https://chat.openai.com/c/new?prompt=${encodeURIComponent(prompt)}`
+  {
+    key: '1',
+    name: 'ChatGPT',
+    formatUrl: (prompt: string) =>
+      `https://chat.openai.com/c/new?prompt=${encodeURIComponent(prompt)}`,
   },
-  { 
-    key: '2', 
-    name: 'Claude AI', 
-    url: 'https://claude.ai/chat/new',
-    formatUrl: (prompt: string) => `https://claude.ai/chat/new?prompt=${encodeURIComponent(prompt)}`
+  {
+    key: '2',
+    name: 'Claude AI',
+    formatUrl: (prompt: string) =>
+      `https://claude.ai/chat/new?prompt=${encodeURIComponent(prompt)}`,
   },
-  { 
-    key: '3', 
-    name: 'Gemini', 
-    url: 'https://gemini.google.com/app',
-    formatUrl: (prompt: string) => `https://gemini.google.com/app?text=${encodeURIComponent(prompt)}`
-  }
+  {
+    key: '3',
+    name: 'Gemini',
+    formatUrl: (prompt: string) =>
+      `https://gemini.google.com/app?text=${encodeURIComponent(prompt)}`,
+  },
 ];
 
-export const LLMSelectDialog: React.FC<LLMSelectDialogProps> = ({ onSelect }) => {
+export const LLMSelectDialog: React.FC<LLMSelectDialogProps> = ({ onSelect, prompt }) => {
   useInput((input, key) => {
     if (key.escape || input.toLowerCase() === 'n') {
       onSelect(null);
       return;
     }
 
-    const option = LLM_OPTIONS.find(opt => opt.key === input);
+    const option = LLM_OPTIONS.find((opt) => opt.key === input);
     if (option) {
       onSelect(option.formatUrl(prompt));
     }
