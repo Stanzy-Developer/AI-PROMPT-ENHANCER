@@ -56,7 +56,7 @@ export const EnhanceCommand = ({ prompt, options }: EnhanceCommandProps) => {
         }
 
         const result = await provider.generateCompletion(
-          `Enhance this prompt for ${enhancementType}:\n\n${prompt}`
+          `Enhance this prompt for ${enhancementType}. Return ONLY the enhanced prompt with no additional text, explanations, or prefixes:\n\n${prompt}`
         );
 
         setEnhancedPrompt(result.text);
