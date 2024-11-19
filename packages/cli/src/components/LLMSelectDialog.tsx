@@ -12,7 +12,7 @@ const LLM_OPTIONS = [
     key: '1',
     name: 'ChatGPT',
     formatUrl: (prompt: string) =>
-      `https://chat.openai.com/?model=gpt-4#prompt=${encodeURIComponent(prompt)}`,
+      `https://chat.openai.com/chat?prompt=${encodeURIComponent(prompt)}`,
   },
   {
     key: '2',
@@ -24,7 +24,7 @@ const LLM_OPTIONS = [
     key: '3',
     name: 'Gemini',
     formatUrl: (prompt: string) =>
-      `https://gemini.google.com/app/new?text=${encodeURIComponent(prompt)}`,
+      `https://gemini.google.com/?text=${encodeURIComponent(prompt)}`,
   },
 ];
 
