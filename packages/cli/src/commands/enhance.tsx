@@ -5,6 +5,8 @@ import { ThemedMessage } from '../components/ThemedMessage.js';
 import { CopyDialog } from '../components/CopyDialog.js';
 import { AnthropicProvider, EnhancementType} from '@prompt-enhancer/core';
 import { getErrorDetails, formatError } from '../utils/errorHandling.js';
+import { LLMSelectDialog } from '../components/LLMSelectDialog.js';
+import { exec } from 'child_process';
 
 console.log('React version:', React.version);
 
@@ -122,7 +124,7 @@ export const EnhanceCommand = ({ prompt, options }: EnhanceCommandProps) => {
             if (url) {
               // Open the selected LLM chat in the default browser
               const command = process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open';
-              require('child_process').exec(`${command} ${url}`);
+              exec(`${command} ${url}`);
             }
             // Reset the copied state to allow for future copying
             process.stdout.write('\n');
