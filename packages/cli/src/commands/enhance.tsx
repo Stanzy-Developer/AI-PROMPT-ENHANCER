@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text, useInput } from 'ink';
+import { Box, Text, useInput, useApp } from 'ink';
 import { LoadingSpinner } from '../components/LoadingSpinner.js';
 import { ThemedMessage } from '../components/ThemedMessage.js';
 import { CopyDialog } from '../components/CopyDialog.js';
@@ -20,6 +20,7 @@ interface EnhanceCommandProps {
 }
 
 export const EnhanceCommand = ({ prompt, options }: EnhanceCommandProps) => {
+  const { exit } = useApp();
   const [enhancedPrompt, setEnhancedPrompt] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -112,6 +113,8 @@ export const EnhanceCommand = ({ prompt, options }: EnhanceCommandProps) => {
             setShowCopyDialog(false);
             // Reset the copied state to allow for future copying
             process.stdout.write('\n');
+            // Signal completion to command loop
+            exit();
           }}
         />
       )}
